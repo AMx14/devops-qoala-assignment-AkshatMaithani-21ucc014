@@ -81,7 +81,7 @@ EXPOSE 80
 - Corrected configuration syntax
 - Added proper logging directives
 
-### 5. Docker Compose File (`docker compose.yaml`)
+### 5. Docker Compose File (`docker-compose.yaml`)
 
 **Issues Found:**
 - Incorrect volume mappings
