@@ -10,6 +10,12 @@ This documentation covers the debugging and deployment steps for a Dockerized ap
 - [Verification](#verification)
 - [Logs](#logs)
 
+## Cloud Deployment
+
+The application is deployed on a cloud server and can be accessed at:
+
+[http://ec2-3-110-191-228.ap-south-1.compute.amazonaws.com/](http://ec2-3-110-191-228.ap-south-1.compute.amazonaws.com/)
+
 ## Overview
 
 The project consists of two main services:
