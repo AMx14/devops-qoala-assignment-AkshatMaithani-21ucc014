@@ -81,7 +81,7 @@ EXPOSE 80
 - Corrected configuration syntax
 - Added proper logging directives
 
-### 5. Docker Compose File (`docker-compose.yaml`)
+### 5. Docker Compose File (`docker compose.yaml`)
 
 **Issues Found:**
 - Incorrect volume mappings
@@ -107,7 +107,7 @@ cd <project-directory>
 
 2. Build and start the containers:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 ## Verification
@@ -119,7 +119,7 @@ docker-compose up --build
 
 2. Check container status:
 ```bash
-docker-compose ps
+docker compose ps
 ```
 
 ## Logs
