@@ -124,19 +124,13 @@ docker-compose ps
 
 ## Logs
 
-### Nginx Access Logs
+### Nginx Logs
 ![Nginx Access Logs](path_to_access_logs_screenshot.png)
 ```
 # Sample log output
 172.20.0.1 - - [03/Nov/2024:10:15:23 +0000] "GET / HTTP/1.1" 200 396 "-" "Mozilla/5.0..."
 ```
 
-### Nginx Error Logs
-![Nginx Error Logs](path_to_error_logs_screenshot.png)
-```
-# Sample log output
-2024/11/03 10:15:23 [notice] 1#1: start worker process 31
-```
 
 ### Application Logs
 ![Application Logs](path_to_app_logs_screenshot.png)
