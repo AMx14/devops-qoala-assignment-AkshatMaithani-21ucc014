@@ -1,88 +1,152 @@
-# DevOps Assignment: Debugging and Running a Dockerized Application
+# Qoala DevOps Internship Assignment
+## Debugging & Deployment Documentation
 
-Welcome to your DevOps assignment! Your goal is to debug and deploy a Dockerized application. The steps below outline the tasks you’ll complete, including setup, debugging, running, testing, and submitting your work.
+This documentation covers the debugging and deployment steps for a Dockerized application stack using Python (Flask) and Nginx. The project demonstrates the implementation of a reverse proxy setup with proper containerization.
 
-## Assignment Overview
+## Table of Contents
+- [Overview](#overview)
+- [Key Issues and Resolutions](#key-issues-and-resolutions)
+- [Deployment Steps](#deployment-steps)
+- [Verification](#verification)
+- [Logs](#logs)
 
-In this assignment, you’ll:
-1. Set up Docker and Docker Compose.
-2. Build Docker images and launch containers.
-3. Debug and resolve intentional errors in the code to ensure the application runs correctly.
-4. Verify the application in your browser.
-5. Document your process and submit your work.
+## Overview
 
----
+The project consists of two main services:
+1. A Python Flask application that displays system information
+2. An Nginx reverse proxy server
 
-## Requirements
+## Key Issues and Resolutions
 
-**Tools Needed:**
-- **System:** Use any laptop, PC, or cloud server.
-- **Tools:** Docker and Docker Compose must be installed and configured.
+### 1. Python Application Dockerfile (`Python/Dockerfile`)
 
----
+**Issues Found:**
+- Incorrect file paths and WORKDIR
+- Misconfigured package names
+- Wrong port exposure format
 
-## Steps
+**Resolutions:**
+```dockerfile
+# Before
+WORKDIR /appp
+COPY appy.py .
+RUN pip install netiface
+EXPOSE "eight thousand"
 
-### 1. Initial Setup
-1. **Clone the GitHub Repository:**
-   - Start by cloning the provided GitHub repository, which contains the `Dockerfiles`, `docker-compose.yml` file, and the application code.
-   
-2. **Build Docker Images:**
-   - Build each Docker image locally using the provided Dockerfiles.
-   - Tag each image appropriately to be referenced by the `docker-compose.yml` file.
+# After
+WORKDIR /app
+COPY app.py .
+RUN pip install netifaces
+EXPOSE 8000
+```
 
-### 2. Running the Docker Compose File
-1. **Start the Containers:**
-   - Use the provided `docker-compose.yml` file to launch all containers.
-   - **Note:** There are intentional errors in the code. Part of your assignment is to identify and fix these errors so the application runs correctly.
+### 2. Python Application Code (`app.py`)
 
-### 3. Debugging and Testing
-1. **Identify Issues:**
-   - Check the logs for any errors while building and running containers.
-   - Examine the application code, Dockerfiles, and `docker-compose.yml` file to identify intentional errors.
+**Issues Found:**
+- Potential runtime errors in MAC address retrieval
+- Inefficient user IP handling
 
-2. **Resolve Errors:**
-   - Document the issues and explain your debugging steps.
-   - Apply necessary changes to the code, Dockerfiles, or configuration to resolve these errors.
+**Resolutions:**
+- Added error handling for interface MAC addresses
+- Implemented X-Forwarded-For header support
+- Enhanced HTML output formatting
 
-3. **Verify Website Access:**
-   - Open a web browser and access the application on `http://localhost` (or `http://<server-IP>` if hosted on a cloud server) to confirm it is running correctly.
-   - Check Nginx or other web server logs to confirm requests are being logged as expected.
+### 3. Nginx Dockerfile (`nginx/Dockerfile`)
 
-### 4. Submitting the Assignment
-1. **GitHub Repository:**
-   - Create a new GitHub repository and name it in this format: `devops-qoala-assignment-<name>-<rollnumber>`.
-   - Upload all relevant files (including the modified code, Dockerfiles, `docker-compose.yml`, and other configurations) to this repository.
-   - Grant access to `devops@qoala.id`. **Note:** Submissions without access granted will not be considered.
+**Issues Found:**
+- Incorrect base image specification
+- Wrong file paths in COPY commands
+- Misconfigured daemon directive
 
-2. **Screenshots:**
-   - Take a screenshot of the application running in the browser.
-   - Include a screenshot showing Nginx (or web server) access logs that confirm a successful request.
+**Resolutions:**
+```dockerfile
+# Before
+FROM nginx:1
+COPY nginix.conf /etc/nginx/nginx.conf
+EXPOSE "eighty"
 
-3. **Report:**
-   - Write a concise, one-page report that includes:
-     - **Issues Identified:** Summarize any errors encountered during image building, container setup, or application testing.
-     - **Resolution Steps:** Describe each action taken to resolve the issues and ensure the application runs correctly.
+# After
+FROM nginx:latest
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+```
 
----
+### 4. Nginx Configuration (`nginx.conf`)
 
-## Bonus Points
+**Issues Found:**
+- Typographical errors in directives
+- Missing logging configuration
 
-### Cloud Deployment
-- For extra credit, deploy the application on a cloud server (AWS, GCP, or Azure) and provide an accessible endpoint, such as an IP address or DNS record.
-- This will allow your work to be verified through the shared endpoint.
+**Resolutions:**
+- Corrected configuration syntax
+- Added proper logging directives
 
----
+### 5. Docker Compose File (`docker-compose.yaml`)
 
-## Summary Checklist
-- Set up Docker and Docker Compose.
-- Clone and build Docker images.
-- Debug and fix issues in code, Dockerfiles, or `docker-compose.yml`.
-- Start containers and verify application accessibility on port 80.
-- Upload files to a new GitHub repository and grant access to `devops@qoala.id`.
-- Submit screenshots and a concise report of issues and solutions.
-- (Bonus) Deploy on a cloud provider and share endpoint details.
+**Issues Found:**
+- Incorrect volume mappings
+- Missing network configuration
 
----
+**Resolutions:**
+```yaml
+services:
+  nginx:
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - app-network
+```
 
-Good luck, and happy debugging!
+## Deployment Steps
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
+
+2. Build and start the containers:
+```bash
+docker-compose up --build
+```
+
+## Verification
+
+1. Access the application:
+   - Open `http://localhost` in your browser
+   - The Flask application should be accessible through the root endpoint
+   - Direct Nginx access should show the static HTML page
+
+2. Check container status:
+```bash
+docker-compose ps
+```
+
+## Logs
+
+### Nginx Access Logs
+![Nginx Access Logs](path_to_access_logs_screenshot.png)
+```
+# Sample log output
+172.20.0.1 - - [03/Nov/2024:10:15:23 +0000] "GET / HTTP/1.1" 200 396 "-" "Mozilla/5.0..."
+```
+
+### Nginx Error Logs
+![Nginx Error Logs](path_to_error_logs_screenshot.png)
+```
+# Sample log output
+2024/11/03 10:15:23 [notice] 1#1: start worker process 31
+```
+
+### Application Logs
+![Application Logs](path_to_app_logs_screenshot.png)
+```
+# Sample log output
+[2024-11-03 10:15:23] INFO: Flask application started
+```
+
+## Note for Screenshots
+Replace the placeholder image paths with actual screenshots of your logs after deployment. Ensure that sensitive information is properly redacted before committing the screenshots.
+
+## Contributing
+If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
