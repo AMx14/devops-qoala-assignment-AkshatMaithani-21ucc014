@@ -139,8 +139,5 @@ docker-compose ps
 [2024-11-03 10:15:23] INFO: Flask application started
 ```
 
-## Note for Screenshots
-Replace the placeholder image paths with actual screenshots of your logs after deployment. Ensure that sensitive information is properly redacted before committing the screenshots.
-
 ## Contributing
 If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
