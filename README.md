@@ -137,10 +137,7 @@ docker compose ps
 
 ### Broswer Localhost
 ![Broswer](Browser.png)
-```
-# Sample log output
-[2024-11-03 10:15:23] INFO: Flask application started
-```
+
 
 ## Contributing
 If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
