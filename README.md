@@ -124,16 +124,13 @@ docker-compose ps
 
 ## Logs
 
-### Nginx Logs
-![Nginx Access Logs](NginixLogs.jpg)
-```
-# Sample log output
-172.20.0.1 - - [03/Nov/2024:10:15:23 +0000] "GET / HTTP/1.1" 200 396 "-" "Mozilla/5.0..."
-```
+### Nginx & Python Web App Logs
+![Nginx & Python Web App Logs](NginixLogs.jpg)
 
 
-### Application Logs
-![Application Logs](Browser.png)
+
+### Broswer Localhost
+![Broswer](Browser.png)
 ```
 # Sample log output
 [2024-11-03 10:15:23] INFO: Flask application started
