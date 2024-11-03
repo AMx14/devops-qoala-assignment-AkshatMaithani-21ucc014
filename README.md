@@ -3,18 +3,18 @@
 
 This documentation covers the debugging and deployment steps for a Dockerized application stack using Python (Flask) and Nginx. The project demonstrates the implementation of a reverse proxy setup with proper containerization.
 
+## Cloud Deployment
+
+The application is deployed on a cloud server and can be accessed at:
+
+[http://ec2-3-110-191-228.ap-south-1.compute.amazonaws.com/](http://ec2-3-110-191-228.ap-south-1.compute.amazonaws.com/)
+
 ## Table of Contents
 - [Overview](#overview)
 - [Key Issues and Resolutions](#key-issues-and-resolutions)
 - [Deployment Steps](#deployment-steps)
 - [Verification](#verification)
 - [Logs](#logs)
-
-## Cloud Deployment
-
-The application is deployed on a cloud server and can be accessed at:
-
-[http://ec2-3-110-191-228.ap-south-1.compute.amazonaws.com/](http://ec2-3-110-191-228.ap-south-1.compute.amazonaws.com/)
 
 ## Overview
 
